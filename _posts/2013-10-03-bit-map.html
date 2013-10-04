@@ -1,0 +1,48 @@
+---
+layout: default
+title: hello world
+---
+
+{{ page.title }}
+================
+
+
+	public class BitMap {
+		private final int BITS=32;
+		private final int SHIFT=5;
+		private final int MASK=0x1F;
+		private int[] data;
+		public BitMap(int nums){
+			data=new int[1+nums/BITS];
+		}
+		public void add(int value){
+			int index=value>>SHIFT;//相当于value/32
+			int bit=value&MASK;//只取当前值的低31位，相当于value%31
+			data[index]=data[index]|(1<<bit);
+		}
+		public void clr(int value){
+			int index=value>>SHIFT;
+			int bit=1<<value&MASK;
+			bit=~bit;
+			data[index]=data[index]&bit;
+		}
+		public boolean find(int value){
+			int index=value>>SHIFT;
+			int bit=1<<(value&MASK);
+			if((data[index]&bit)!=0)
+				return true;
+			else
+				return false;
+		}
+		public static void main(String[] args){
+			BitMap bm=new BitMap(100);
+			bm.add(23);
+			bm.add(35);
+			bm.add(24);
+			bm.add(43);
+			System.out.println(bm.find(20));
+		}
+	}
+
+
+{{ page.date | date_to_string }}
